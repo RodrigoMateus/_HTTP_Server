@@ -20,9 +20,9 @@ import com.sun.net.httpserver.HttpServer;
 public class MainApp {
 
 	public static void main(String[] args) throws Exception {
-		System.out.println(" +---------------+");
-		System.out.println(" |  HTTP Server  |");
-		System.out.println(" +---------------+\n");
+		System.out.println(" +---------------------------+");
+		System.out.println(" |  HTTP Server (Porta 8000  |");
+		System.out.println(" +---------------------------+\n");
 
 		HttpServer httpServer = HttpServer.create(new InetSocketAddress(8000), 0);
 		httpServer.createContext("/", new MyHandler());
