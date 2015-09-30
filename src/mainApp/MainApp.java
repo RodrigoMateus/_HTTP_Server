@@ -21,7 +21,7 @@ public class MainApp {
 
 	public static void main(String[] args) throws Exception {
 		System.out.println(" +---------------------------+");
-		System.out.println(" |  HTTP Server (Porta 8000  |");
+		System.out.println(" |  HTTP Server (Porta 8000)  |");
 		System.out.println(" +---------------------------+\n");
 
 		HttpServer httpServer = HttpServer.create(new InetSocketAddress(8000), 0);
@@ -45,8 +45,8 @@ public class MainApp {
 					ByteBuffer buffer = null;
 					String fileName = (new String(new SimpleDateFormat("yyyy-MM-dd_HHmmss_").format(new Date())))
 							+ "coordinates.json";
-					InputStream in = httpExchange.getRequestBody();
-					tempByteArray = IOUtils.toByteArray(in);
+					InputStream inputStream = httpExchange.getRequestBody();
+					tempByteArray = IOUtils.toByteArray(inputStream);
 					buffer = ByteBuffer.wrap(tempByteArray);
 					try {
 						fileChannel = new FileOutputStream(fileName, true).getChannel();
