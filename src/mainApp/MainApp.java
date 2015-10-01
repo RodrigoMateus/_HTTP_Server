@@ -20,9 +20,11 @@ import com.sun.net.httpserver.HttpServer;
 public class MainApp {
 
 	public static void main(String[] args) throws Exception {
-		System.out.println(" +---------------------------+");
+		System.out.println(" +----------------------------+");
 		System.out.println(" |  HTTP Server (Porta 8000)  |");
-		System.out.println(" +---------------------------+\n");
+		System.out.println(" +----------------------------+\n");
+
+		new LogRecord();
 
 		HttpServer httpServer = HttpServer.create(new InetSocketAddress(8000), 0);
 		httpServer.createContext("/", new MyHandler());
@@ -61,6 +63,8 @@ public class MainApp {
 					OutputStream outputStream = httpExchange.getResponseBody();
 					outputStream.write(response.getBytes());
 					outputStream.close();
+
+					LogRecord.insertLog(new String(tempByteArray));
 				}
 
 				if (httpExchange.getRequestHeaders().getFirst("Content-type").equals("image/png")) {
@@ -87,6 +91,9 @@ public class MainApp {
 					OutputStream outputStream = httpExchange.getResponseBody();
 					outputStream.write(response.getBytes());
 					outputStream.close();
+
+					LogRecord.insertLog(
+							"Image received on " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS").format(new Date()));
 				}
 				System.out.println("POST");
 			}
