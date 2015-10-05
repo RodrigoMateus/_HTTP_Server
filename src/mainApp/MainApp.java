@@ -58,6 +58,7 @@ public class MainApp {
 						System.out.println("ERRO FileChannel");
 						e.printStackTrace();
 					}
+
 					String response = "JSON Ok!";
 					httpExchange.sendResponseHeaders(200, response.length());
 					OutputStream outputStream = httpExchange.getResponseBody();
