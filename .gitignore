@@ -59,3 +59,4 @@ hs_err_pid*
 ### Arquivos recebidos ###
 *.json
 *.png
+/LogRecord.txt
