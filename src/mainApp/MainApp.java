@@ -1,5 +1,9 @@
 package mainApp;
 
+/****************************
+ * HTTP Server (Porta 8000) *
+ ****************************/
+
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
