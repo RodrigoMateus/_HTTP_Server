@@ -98,7 +98,7 @@ public class MainApp {
 					outputStream.close();
 
 					LogRecord.insertLog(
-							"Image received on " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS").format(new Date()));
+							"Image received on " + new SimpleDateFormat("yyyy-MM-dd;HH:mm:ss:SSS").format(new Date()));
 				}
 				System.out.println("POST");
 			}
