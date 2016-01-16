@@ -42,6 +42,7 @@ public class MainApp {
 		public void handle(HttpExchange httpExchange) throws IOException {
 
 			if (httpExchange.getRequestMethod().equalsIgnoreCase("POST")) {
+				System.out.println("POST");
 
 				if (httpExchange.getRequestHeaders().getFirst("Content-type").equals("application/json")) {
 					System.out.println("É um JSON");
@@ -72,6 +73,35 @@ public class MainApp {
 					LogRecord.insertLog(new String(tempByteArray));
 				}
 
+				if (httpExchange.getRequestHeaders().getFirst("Content-type").equals("image/jpg")) {
+					System.out.println("É um JPEG");
+
+					byte[] tempByteArray = null;
+					FileChannel fileChannel;
+					ByteBuffer buffer = null;
+					String fileName = (new String(new SimpleDateFormat("yyyy-MM-dd_HHmmss_").format(new Date())))
+							+ "image.jpg";
+					InputStream in = httpExchange.getRequestBody();
+					tempByteArray = IOUtils.toByteArray(in);
+					buffer = ByteBuffer.wrap(tempByteArray);
+					try {
+						fileChannel = new FileOutputStream(fileName, true).getChannel();
+						fileChannel.write(buffer);
+						fileChannel.close();
+					} catch (FileNotFoundException e) {
+						System.out.println("ERRO FileChannel");
+						e.printStackTrace();
+					}
+					String response = "JPEG Ok!";
+					httpExchange.sendResponseHeaders(200, response.length());
+					OutputStream outputStream = httpExchange.getResponseBody();
+					outputStream.write(response.getBytes());
+					outputStream.close();
+
+					LogRecord.insertLog(
+							"Image received on " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS").format(new Date()));
+				}
+
 				if (httpExchange.getRequestHeaders().getFirst("Content-type").equals("image/png")) {
 					System.out.println("É um PNG");
 
@@ -100,7 +130,6 @@ public class MainApp {
 					LogRecord.insertLog(
 							"Image received on " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS").format(new Date()));
 				}
-				System.out.println("POST");
 			}
 
 			if (httpExchange.getRequestMethod().equalsIgnoreCase("GET")) {
