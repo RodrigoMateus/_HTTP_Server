@@ -11,7 +11,7 @@ public class LogRecord {
 
 	public LogRecord() {
 
-		File file = new File("LogRecord.txt");
+		File file = new File("HTTP_Server_RequestLog.txt");
 
 		try {
 			FileWriter fileWriter = new FileWriter(file, true);

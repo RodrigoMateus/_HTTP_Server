@@ -17,6 +17,7 @@ import java.util.Date;
 
 import org.apache.commons.io.IOUtils;
 
+import com.maykot.radiolibrary.utils.LogRecord;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
@@ -70,7 +71,8 @@ public class MainApp {
 					outputStream.write(response.getBytes());
 					outputStream.close();
 
-					LogRecord.insertLog(new String(tempByteArray));
+					LogRecord.insertLog(new String(new SimpleDateFormat("yyyy-MM-dd;HH:mm:ss:SSS").format(new Date()))
+							+ ";" + new String(tempByteArray));
 				}
 
 				if (httpExchange.getRequestHeaders().getFirst("Content-type").equals("image/jpg")) {
